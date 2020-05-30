@@ -189,14 +189,14 @@ contract TruRun {
 
 
 
-    function buyLevel(uint _level, uint _numTRUSD) public {
+    function buyLevel(uint _level, uint _numTrusd) public {
         require(users[msg.sender].isExist, 'User not exist'); 
         require(_level > 0 && _level <= 10, 'Incorrect level');
 
         trusdTokenInterface.transferFrom(msg.sender, address(this), _numTRUSD);
 
         if(_level == 1) {
-            require(_numTRUSD == LEVEL_PRICE[1], 'Incorrect Value');
+            require(_numTrusd == LEVEL_PRICE[1], 'Incorrect Value');
             users[msg.sender].levelExpired[1] += PERIOD_LENGTH;
         }
         else {
