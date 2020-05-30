@@ -155,14 +155,14 @@ contract TruRun {
 
 
 
-    function regUser(uint _referrerID, uint _numHex) public {
+    function regUser(uint _referrerID, uint _numTrusd) public {
 
         require(!users[msg.sender].isExist, 'User exist');
         require(_referrerID > 0 && _referrerID <= currUserID, 'Incorrect referrer Id');
         require(_numTRUSD == LEVEL_PRICE[1], 'Incorrect number of TRUSD sent');
         if(users[userList[_referrerID]].referral.length >= REFERRER_1_LEVEL_LIMIT) _referrerID = users[findFreeReferrer(userList[_referrerID])].id;
         
-        hexTokenInterface.transferFrom(msg.sender, address(this), _numHex);
+        trusdTokenInterface.transferFrom(msg.sender, address(this), _numTrusd);
         
         UserStruct memory userStruct;
         currUserID++;
