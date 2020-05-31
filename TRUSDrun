@@ -132,8 +132,6 @@ contract TruRun {
         LEVEL_PRICE[6] = 32000 * 1e8;
         LEVEL_PRICE[7] = 64000 * 1e8;
         LEVEL_PRICE[8] = 128000 * 1e8;
-        LEVEL_PRICE[9] = 256000 * 1e8;
-        LEVEL_PRICE[10] = 512000 * 1e8;
          /// (TRUSD)
 
         UserStruct memory userStruct;
@@ -148,7 +146,7 @@ contract TruRun {
         users[ownerWallet] = userStruct;
         userList[currUserID] = ownerWallet;
 
-        for(uint i = 1; i <= 10; i++) {
+        for(uint i = 1; i <= 8; i++) {
             users[ownerWallet].levelExpired[i] = 55555555555;
         }
     }
@@ -191,7 +189,7 @@ contract TruRun {
 
     function buyLevel(uint _level, uint _numTRUSD) public {
         require(users[msg.sender].isExist, 'User not exist'); 
-        require(_level > 0 && _level <= 10, 'Incorrect level');
+        require(_level > 0 && _level <= 8, 'Incorrect level');
 
         trusdTokenInterface.transferFrom(msg.sender, address(this), _numTRUSD);
 
@@ -223,25 +221,25 @@ contract TruRun {
         address referer3;
         address referer4;
 
-        if(_level == 1 || _level == 6) {
+        if(_level == 1 || _level == 4) {
             referer = userList[users[_user].referrerID];
         }
-        else if(_level == 2 || _level == 7) {
+        else if(_level == 2 || _level == 5) {
             referer1 = userList[users[_user].referrerID];
             referer = userList[users[referer1].referrerID];
         }
-        else if(_level == 3 || _level == 8) {
+        else if(_level == 3 || _level == 6) {
             referer1 = userList[users[_user].referrerID]; 
             referer2 = userList[users[referer1].referrerID];
             referer = userList[users[referer2].referrerID];
         }
-        else if(_level == 4 || _level == 9) {
+        else if(_level == 4 || _level == 7) {
             referer1 = userList[users[_user].referrerID];
             referer2 = userList[users[referer1].referrerID];
             referer3 = userList[users[referer2].referrerID];
             referer = userList[users[referer3].referrerID];
         }
-        else if(_level == 5 || _level == 10) {
+        else if(_level == 5 || _level == 8) {
             referer1 = userList[users[_user].referrerID];
             referer2 = userList[users[referer1].referrerID];
             referer3 = userList[users[referer2].referrerID];
